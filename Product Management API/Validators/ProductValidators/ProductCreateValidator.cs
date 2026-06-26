@@ -15,10 +15,10 @@ namespace Product_Management_API.Validators.ProductValidators
                 .GreaterThan(0).WithMessage("Price must be greater than zero.");
 
             RuleFor(x => x.CategoryId)
-                .GreaterThan(0).WithMessage("Category is required");
+                .GreaterThan(0).WithMessage("CategoryId is required");
 
             RuleFor(x => x.StockQuantity)
-                .GreaterThan(0).WithMessage("Stock cannot be zero");
+                .GreaterThanOrEqualTo(0).WithMessage("Stock cannot be negative");
         }
     }
 }

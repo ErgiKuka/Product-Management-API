@@ -35,6 +35,7 @@ namespace Product_Management_API.Services.ProductServ
                 CategoryId = dto.CategoryId,
                 CreatedAt = DateTime.UtcNow
             };
+            
 
             await _unitOfWork.Product.AddAsync(product);
 
@@ -58,9 +59,9 @@ namespace Product_Management_API.Services.ProductServ
             _logger.LogInformation($"Product with ID {id} deleted successfully.");
         }
 
-        public async Task<IEnumerable<ProductResponseDto>> GetAllProductsAsync()
+        public async Task<IEnumerable<ProductResponseDto>> GetAllProductsAsync(int? categoryid)
         {
-            var products = await _unitOfWork.Product.GetAllProductsAsync();
+            var products = await _unitOfWork.Product.GetAllProductsAsync(categoryid);
             _logger.LogInformation($"Retrieved {products.Count()} products from the database.");
 
             return _mapper.Map<IEnumerable<ProductResponseDto>>(products).ToList();

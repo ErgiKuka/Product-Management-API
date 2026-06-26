@@ -17,9 +17,9 @@ namespace Product_Management_API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll() 
+        public async Task<IActionResult> GetAll([FromQuery] int? categoryid) 
         { 
-            var products = await _productService.GetAllProductsAsync();
+            var products = await _productService.GetAllProductsAsync(categoryid);
             return Ok(products);
         }
 
@@ -27,10 +27,6 @@ namespace Product_Management_API.Controllers
         public async Task<IActionResult> GetById(int id)
         {
             var product = await _productService.GetProductsByIdAsync(id);
-            if (product == null)
-            {
-                return NotFound();
-            }
             return Ok(product);
         }
 

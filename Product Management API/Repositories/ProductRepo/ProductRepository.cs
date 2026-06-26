@@ -13,12 +13,16 @@ namespace Product_Management_API.Repositories.ProductRepo
             _context = context;
         }
 
-        public async Task<IEnumerable<Product>> GetAllProductsAsync()
+        public async Task<IEnumerable<Product>> GetAllProductsAsync(int? categoryid)
         {
+            var query = _context.Products.Include(p => p.Category).AsQueryable();
 
-            return await _context.Products.Include(p => p.Category)
-                                           .ToListAsync();
+            if (categoryid.HasValue)
+            {
+                query = query.Where(p => p.CategoryId == categoryid.Value);
+            }
 
+            return await query.ToListAsync();
         }
 
         public async Task<IEnumerable<Product>> GetProductsByCategoryAsync(int categoryId)

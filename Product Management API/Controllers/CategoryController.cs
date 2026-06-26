@@ -9,7 +9,7 @@ namespace Product_Management_API.Controllers
     [ApiController]
     public class CategoryController : ControllerBase
     {
-        private ICategoryService _categoryService;
+        private readonly ICategoryService _categoryService;
 
         public CategoryController(ICategoryService categoryService)
         {
@@ -27,10 +27,6 @@ namespace Product_Management_API.Controllers
         public async Task<IActionResult> GetById(int id)
         {
             var category = await _categoryService.GetCategoryById(id);
-            if (category == null)
-            {
-                return NotFound();
-            }
             return Ok(category);
         }
 
