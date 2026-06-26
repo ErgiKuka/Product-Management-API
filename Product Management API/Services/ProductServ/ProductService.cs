@@ -28,10 +28,11 @@ namespace Product_Management_API.Services.ProductServ
                 Description = dto.Description,
                 Price = dto.Price,
                 StockQuantity = dto.StockQuantity,
-                CategoryId = dto.CategoryId
+                CategoryId = dto.CategoryId,
+                CreatedAt = DateTime.UtcNow
             };
 
-            await _unitOfWork.Product.AddAsync(dto);
+            await _unitOfWork.Product.AddAsync(product);
 
             await _unitOfWork.CompleteAsync();
 
@@ -42,7 +43,8 @@ namespace Product_Management_API.Services.ProductServ
                 Description = product.Description,
                 Price = product.Price,
                 StockQuantity = product.StockQuantity,
-                CategoryId = product.CategoryId
+                CategoryId = product.CategoryId,
+                CategoryName = category.CategoryName
             };
         }
 
@@ -54,7 +56,7 @@ namespace Product_Management_API.Services.ProductServ
                 throw new ArgumentException($"Product with ID {id} does not exist.");
             }
 
-            _unitOfWork.Product.Delete(id);
+            _unitOfWork.Product.Delete(product);
 
             await _unitOfWork.CompleteAsync();
 
@@ -64,7 +66,7 @@ namespace Product_Management_API.Services.ProductServ
 
         public async Task<IEnumerable<ProductResponseDto>> GetAllProductsAsync()
         {
-            var products = await _unitOfWork.Product.GetAllAsync();
+            var products = await _unitOfWork.Product.GetAllProductsAsync();
             return products.Select(p => new ProductResponseDto
             {
                 ProductId = p.ProductId,
@@ -73,7 +75,7 @@ namespace Product_Management_API.Services.ProductServ
                 Price = p.Price,
                 StockQuantity = p.StockQuantity,
                 CategoryId = p.CategoryId
-            }).toList();
+            }).ToList();
         }
 
         public async Task<ProductResponseDto> GetProductsByIdAsync(int id)

@@ -37,19 +37,19 @@ namespace Product_Management_API.Services.CategoryServ
             {
                 throw new ArgumentException($"Category with ID {id} does not exist.");
             }
-            _unitOfWork.Category.Delete(id);
+            _unitOfWork.Category.Delete(category);
             await _unitOfWork.CompleteAsync();
         }
 
         public async Task<IEnumerable<CategoryResponseDto>> GetAllCategoriesAsync()
         {
-            var categories = await _unitOfWork.Category.GetAllAsync();
+            var categories = await _unitOfWork.Category.GetAllCategoriesAsync();
             return categories.Select(c => new CategoryResponseDto
             {
                 CategoryId = c.CategoryId,
                 CategoryName = c.CategoryName,
                 Description = c.Description
-            }).toList();
+            }).ToList();
         }
 
         public async Task<CategoryResponseDto> GetCategoryById(int id)
