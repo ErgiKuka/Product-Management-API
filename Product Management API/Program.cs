@@ -1,4 +1,6 @@
 
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using Product_Management_API.Data;
 using Product_Management_API.Repositories.CategoryRepo;
@@ -6,6 +8,8 @@ using Product_Management_API.Repositories.ProductRepo;
 using Product_Management_API.Services.CategoryServ;
 using Product_Management_API.Services.ProductServ;
 using Product_Management_API.UOW;
+using Product_Management_API.Validators.CategoryValidators;
+using Product_Management_API.Validators.ProductValidators;
 
 namespace Product_Management_API
 {
@@ -21,7 +25,11 @@ namespace Product_Management_API
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
             builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
             
-
+            builder.Services.AddFluentValidationAutoValidation();
+            builder.Services.AddValidatorsFromAssemblyContaining<ProductCreateValidator>();
+            builder.Services.AddValidatorsFromAssemblyContaining<ProductUpdateValidator>();
+            builder.Services.AddValidatorsFromAssemblyContaining<CategoryCreateValidator>();
+            builder.Services.AddValidatorsFromAssemblyContaining<CategoryUpdateValidator>();
 
             builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
