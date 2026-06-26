@@ -1,4 +1,5 @@
-﻿using Product_Management_API.Data;
+﻿using AutoMapper;
+using Product_Management_API.Data;
 using Product_Management_API.Data.Entities;
 using Product_Management_API.DTO.Product;
 using Product_Management_API.UOW;
@@ -9,11 +10,12 @@ namespace Product_Management_API.Services.ProductServ
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger<ProductService> _logger;
-
-        public ProductService(IUnitOfWork unitOfWork, ILogger<ProductService> logger)
+        private readonly IMapper _mapper;
+        public ProductService(IUnitOfWork unitOfWork, ILogger<ProductService> logger, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _logger = logger;
+            _mapper = mapper;
         }
 
         public async Task<ProductResponseDto> CreateProductAsync(ProductCreateDto dto)
@@ -39,17 +41,7 @@ namespace Product_Management_API.Services.ProductServ
             await _unitOfWork.CompleteAsync();
 
             _logger.LogInformation($"Product with ID {product.ProductId} created successfully.");
-            return new ProductResponseDto
-            {
-                ProductId = product.ProductId,
-                ProductName = product.ProductName,
-                Description = product.Description,
-                Price = product.Price,
-                StockQuantity = product.StockQuantity,
-                CategoryId = product.CategoryId,
-                CategoryName = category.CategoryName,
-                CreatedAt = product.CreatedAt
-            };
+            return _mapper.Map<ProductResponseDto>(product);
         }
 
         public async Task DeleteProductAsync(int id)
@@ -70,18 +62,8 @@ namespace Product_Management_API.Services.ProductServ
         {
             var products = await _unitOfWork.Product.GetAllProductsAsync();
             _logger.LogInformation($"Retrieved {products.Count()} products from the database.");
-            return products.Select(p => new ProductResponseDto
-            {
-                ProductId = p.ProductId,
-                ProductName = p.ProductName,
-                Description = p.Description,
-                Price = p.Price,
-                StockQuantity = p.StockQuantity,
-                CategoryId = p.CategoryId,
-                CategoryName = p.Category.CategoryName,
-                CreatedAt = p.CreatedAt,
-                UpdatedAt = p.UpdatedAt
-            }).ToList();
+
+            return _mapper.Map<IEnumerable<ProductResponseDto>>(products).ToList();
         }
 
         public async Task<ProductResponseDto> GetProductsByIdAsync(int id)
@@ -92,18 +74,8 @@ namespace Product_Management_API.Services.ProductServ
                 throw new ArgumentException($"Product with ID {id} does not exist.");
             }
             _logger.LogInformation($"Retrieved product with ID {id} from the database.");
-            return new ProductResponseDto
-            {
-                ProductId = product.ProductId,
-                ProductName = product.ProductName,
-                Description = product.Description,
-                Price = product.Price,
-                StockQuantity = product.StockQuantity,
-                CategoryName = product.Category.CategoryName,
-                CategoryId = product.CategoryId,
-                CreatedAt = product.CreatedAt,
-                UpdatedAt = product.UpdatedAt
-            };
+
+            return _mapper.Map<ProductResponseDto>(product);
         }
 
         public async Task UpdateProductAsync(ProductUpdateDto dto, int id)

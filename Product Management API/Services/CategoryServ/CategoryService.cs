@@ -1,4 +1,5 @@
-﻿using Product_Management_API.Data.Entities;
+﻿using AutoMapper;
+using Product_Management_API.Data.Entities;
 using Product_Management_API.DTO.Category;
 using Product_Management_API.UOW;
 
@@ -8,11 +9,13 @@ namespace Product_Management_API.Services.CategoryServ
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger<CategoryService> _logger;
+        private readonly IMapper _mapper;
 
-        public CategoryService(IUnitOfWork unitOfWork, ILogger<CategoryService> logger)
+        public CategoryService(IUnitOfWork unitOfWork, ILogger<CategoryService> logger, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _logger = logger;
+            _mapper = mapper;
         }
 
         public async Task<CategoryResponseDto> CreateCategoryAsync(CategoryCreateDto dto)
@@ -26,12 +29,8 @@ namespace Product_Management_API.Services.CategoryServ
             await _unitOfWork.CompleteAsync();
 
             _logger.LogInformation($"Category created with ID: {category.CategoryId}");
-            return new CategoryResponseDto
-            {
-                CategoryId = category.CategoryId,
-                CategoryName = category.CategoryName,
-                Description = category.Description
-            };
+
+            return _mapper.Map<CategoryResponseDto>(category);
         }
 
         public async Task DeleteCategoryAsync(int id)
@@ -50,12 +49,8 @@ namespace Product_Management_API.Services.CategoryServ
         {
             var categories = await _unitOfWork.Category.GetAllCategoriesAsync();
             _logger.LogInformation($"Retrieved {categories.Count()} categories.");
-            return categories.Select(c => new CategoryResponseDto
-            {
-                CategoryId = c.CategoryId,
-                CategoryName = c.CategoryName,
-                Description = c.Description
-            }).ToList();
+
+            return _mapper.Map<IEnumerable<CategoryResponseDto>>(categories).ToList();
         }
 
         public async Task<CategoryResponseDto> GetCategoryById(int id)
@@ -66,12 +61,8 @@ namespace Product_Management_API.Services.CategoryServ
                 throw new ArgumentException($"Category with ID {id} does not exist.");
             }
             _logger.LogInformation($"Category retrieved with ID: {id}");
-            return new CategoryResponseDto
-            {
-                CategoryId = category.CategoryId,
-                CategoryName = category.CategoryName,
-                Description = category.Description
-            };
+
+            return _mapper.Map<CategoryResponseDto>(category);
         }
 
         public async Task UpdateCategoryAsync(int id, CategoryUpdateDto dto)
