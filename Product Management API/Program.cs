@@ -1,6 +1,11 @@
 
 using Microsoft.EntityFrameworkCore;
 using Product_Management_API.Data;
+using Product_Management_API.Repositories.CategoryRepo;
+using Product_Management_API.Repositories.ProductRepo;
+using Product_Management_API.Services.CategoryServ;
+using Product_Management_API.Services.ProductServ;
+using Product_Management_API.UOW;
 
 namespace Product_Management_API
 {
@@ -9,6 +14,13 @@ namespace Product_Management_API
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+            builder.Services.AddScoped<ICategoryService, CategoryService>();
+            builder.Services.AddScoped<IProductService, ProductService>();
+            builder.Services.AddScoped<IProductRepository, ProductRepository>();
+            builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+            
 
 
             builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -27,8 +39,6 @@ namespace Product_Management_API
                 app.MapOpenApi();
 
                 app.UseSwagger();
-                app.UseSwaggerUI();
-
                 app.UseSwaggerUI(c =>
                 {
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "Product Management API");

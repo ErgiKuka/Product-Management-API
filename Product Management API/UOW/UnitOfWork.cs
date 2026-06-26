@@ -2,7 +2,7 @@
 using Product_Management_API.Repositories.CategoryRepo;
 using Product_Management_API.Repositories.ProductRepo;
 
-namespace Product_Management_API.UnitOfWork
+namespace Product_Management_API.UOW
 {
     public class UnitOfWork : IUnitOfWork
     {
