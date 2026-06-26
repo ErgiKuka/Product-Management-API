@@ -38,7 +38,6 @@ namespace Product_Management_API.Middleware
                 var errorResponse = new
                 {
                     Message = "An unexpected error occurred.",
-                    Details = ex.Message
                 };
                 _logger.LogError(ex, "An unexpected error occurred.");
                 await context.Response.WriteAsJsonAsync(errorResponse);

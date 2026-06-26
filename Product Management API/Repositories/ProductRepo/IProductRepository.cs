@@ -4,7 +4,7 @@ namespace Product_Management_API.Repositories.ProductRepo
 {
     public interface IProductRepository
     {
-        Task<IEnumerable<Product>> GetAllProductsAsync();
+        Task<IEnumerable<Product>> GetAllProductsAsync(int? categoryid);
         Task<IEnumerable<Product>> GetProductsByCategoryAsync(int categoryId);
         Task<Product?> GetByIdAsync(int id);
         Task AddAsync(Product product);
