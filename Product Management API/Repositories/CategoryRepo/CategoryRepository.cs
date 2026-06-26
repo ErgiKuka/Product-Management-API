@@ -2,7 +2,7 @@
 using Product_Management_API.Data;
 using Product_Management_API.Data.Entities;
 
-namespace Product_Management_API.Repositories
+namespace Product_Management_API.Repositories.CategoryRepo
 {
     public class CategoryRepository : ICategoryRepository
     {
@@ -38,10 +38,5 @@ namespace Product_Management_API.Repositories
         {
             _context.Categories.Update(category);
         }
-        public void SaveChangesAsync()
-        {
-            _context.SaveChanges();
-        }
-
     }
 }

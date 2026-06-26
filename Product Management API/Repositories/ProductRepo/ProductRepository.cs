@@ -2,7 +2,7 @@
 using Product_Management_API.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Product_Management_API.Repositories
+namespace Product_Management_API.Repositories.ProductRepo
 {
     public class ProductRepository : IProductRepository
     {
@@ -17,13 +17,13 @@ namespace Product_Management_API.Repositories
         {
 
             return await _context.Products.ToListAsync();
-                         
+
         }
 
         public async Task<IEnumerable<Product>> GetProductsByCategoryAsync(int categoryId)
         {
             return await _context.Products.Where(p => p.CategoryId == categoryId)
-                                          .ToListAsync();                           
+                                          .ToListAsync();
         }
 
         public async Task AddAsync(Product product)
@@ -44,11 +44,6 @@ namespace Product_Management_API.Repositories
         public void Update(Product product)
         {
             _context.Products.Update(product);
-        }
-
-        public void SaveChangesAsync()
-        {
-            _context.SaveChanges();
         }
     }
 }

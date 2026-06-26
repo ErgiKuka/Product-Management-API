@@ -1,5 +1,6 @@
 ﻿using Product_Management_API.Data;
-using Product_Management_API.Repositories;
+using Product_Management_API.Repositories.CategoryRepo;
+using Product_Management_API.Repositories.ProductRepo;
 
 namespace Product_Management_API.UnitOfWork
 {
