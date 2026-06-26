@@ -16,7 +16,8 @@ namespace Product_Management_API.Repositories.ProductRepo
         public async Task<IEnumerable<Product>> GetAllProductsAsync()
         {
 
-            return await _context.Products.ToListAsync();
+            return await _context.Products.Include(p => p.Category)
+                                           .ToListAsync();
 
         }
 
@@ -38,7 +39,8 @@ namespace Product_Management_API.Repositories.ProductRepo
 
         public async Task<Product?> GetByIdAsync(int id)
         {
-            return await _context.Products.FirstOrDefaultAsync(p => p.ProductId == id);
+            return await _context.Products.Include(p => p.Category)
+                                           .FirstOrDefaultAsync(p => p.ProductId == id);
         }
 
         public void Update(Product product)

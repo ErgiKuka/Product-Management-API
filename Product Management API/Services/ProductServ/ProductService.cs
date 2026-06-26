@@ -1,7 +1,7 @@
 ﻿using Product_Management_API.Data;
 using Product_Management_API.Data.Entities;
 using Product_Management_API.DTO.Product;
-using Product_Management_API.UnitOfWork;
+using Product_Management_API.UOW;
 
 namespace Product_Management_API.Services.ProductServ
 {
@@ -44,7 +44,8 @@ namespace Product_Management_API.Services.ProductServ
                 Price = product.Price,
                 StockQuantity = product.StockQuantity,
                 CategoryId = product.CategoryId,
-                CategoryName = category.CategoryName
+                CategoryName = category.CategoryName,
+                CreatedAt = product.CreatedAt
             };
         }
 
@@ -74,7 +75,10 @@ namespace Product_Management_API.Services.ProductServ
                 Description = p.Description,
                 Price = p.Price,
                 StockQuantity = p.StockQuantity,
-                CategoryId = p.CategoryId
+                CategoryId = p.CategoryId,
+                CategoryName = p.Category.CategoryName,
+                CreatedAt = p.CreatedAt,
+                UpdatedAt = p.UpdatedAt
             }).ToList();
         }
 
@@ -92,7 +96,10 @@ namespace Product_Management_API.Services.ProductServ
                 Description = product.Description,
                 Price = product.Price,
                 StockQuantity = product.StockQuantity,
-                CategoryId = product.CategoryId
+                CategoryName = product.Category.CategoryName,
+                CategoryId = product.CategoryId,
+                CreatedAt = product.CreatedAt,
+                UpdatedAt = product.UpdatedAt
             };
         }
 

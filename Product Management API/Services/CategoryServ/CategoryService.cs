@@ -1,6 +1,6 @@
 ﻿using Product_Management_API.Data.Entities;
 using Product_Management_API.DTO.Category;
-using Product_Management_API.UnitOfWork;
+using Product_Management_API.UOW;
 
 namespace Product_Management_API.Services.CategoryServ
 {
