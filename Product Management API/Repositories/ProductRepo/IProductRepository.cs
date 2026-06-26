@@ -1,6 +1,6 @@
 ﻿using Product_Management_API.Data.Entities;
 
-namespace Product_Management_API.Repositories
+namespace Product_Management_API.Repositories.ProductRepo
 {
     public interface IProductRepository
     {
@@ -10,6 +10,5 @@ namespace Product_Management_API.Repositories
         Task AddAsync(Product product);
         void Update(Product product);
         void Delete(Product product);
-        void SaveChangesAsync();
     }
 }

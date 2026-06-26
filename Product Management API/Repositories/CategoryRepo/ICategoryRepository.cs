@@ -1,6 +1,6 @@
 ﻿using Product_Management_API.Data.Entities;
 
-namespace Product_Management_API.Repositories
+namespace Product_Management_API.Repositories.CategoryRepo
 {
     public interface ICategoryRepository
     {
@@ -9,6 +9,5 @@ namespace Product_Management_API.Repositories
         Task AddAsync(Category category);
         void Update(Category category);
         void Delete(Category category);
-        void SaveChangesAsync();
     }
 }
