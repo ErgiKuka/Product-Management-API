@@ -18,7 +18,7 @@ namespace Product_Management_API.Validators.ProductValidators
                 .GreaterThan(0).WithMessage("Category is required");
 
             RuleFor(x => x.StockQuantity)
-                .GreaterThan(0).WithMessage("Stock cannot be negative");
+                .GreaterThan(0).WithMessage("Stock cannot be zero");
         }
     }
 }
