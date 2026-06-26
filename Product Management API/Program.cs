@@ -3,6 +3,7 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using Product_Management_API.Data;
+using Product_Management_API.Middleware;
 using Product_Management_API.Repositories.CategoryRepo;
 using Product_Management_API.Repositories.ProductRepo;
 using Product_Management_API.Services.CategoryServ;
@@ -57,7 +58,7 @@ namespace Product_Management_API
 
             app.UseAuthorization();
 
-
+            app.UseMiddleware<ErrorHandlingMiddleware>();
             app.MapControllers();
 
             app.Run();

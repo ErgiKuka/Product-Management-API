@@ -8,10 +8,12 @@ namespace Product_Management_API.Services.ProductServ
     public class ProductService : IProductService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly ILogger<ProductService> _logger;
 
-        public ProductService(IUnitOfWork unitOfWork)
+        public ProductService(IUnitOfWork unitOfWork, ILogger<ProductService> logger)
         {
             _unitOfWork = unitOfWork;
+            _logger = logger;
         }
 
         public async Task<ProductResponseDto> CreateProductAsync(ProductCreateDto dto)
@@ -36,6 +38,7 @@ namespace Product_Management_API.Services.ProductServ
 
             await _unitOfWork.CompleteAsync();
 
+            _logger.LogInformation($"Product with ID {product.ProductId} created successfully.");
             return new ProductResponseDto
             {
                 ProductId = product.ProductId,
@@ -60,14 +63,13 @@ namespace Product_Management_API.Services.ProductServ
             _unitOfWork.Product.Delete(product);
 
             await _unitOfWork.CompleteAsync();
-
-            return;
-
+            _logger.LogInformation($"Product with ID {id} deleted successfully.");
         }
 
         public async Task<IEnumerable<ProductResponseDto>> GetAllProductsAsync()
         {
             var products = await _unitOfWork.Product.GetAllProductsAsync();
+            _logger.LogInformation($"Retrieved {products.Count()} products from the database.");
             return products.Select(p => new ProductResponseDto
             {
                 ProductId = p.ProductId,
@@ -89,6 +91,7 @@ namespace Product_Management_API.Services.ProductServ
             {
                 throw new ArgumentException($"Product with ID {id} does not exist.");
             }
+            _logger.LogInformation($"Retrieved product with ID {id} from the database.");
             return new ProductResponseDto
             {
                 ProductId = product.ProductId,
@@ -126,6 +129,7 @@ namespace Product_Management_API.Services.ProductServ
             product.UpdatedAt = DateTime.UtcNow;
 
             await _unitOfWork.CompleteAsync();
+            _logger.LogInformation($"Product with ID {id} updated successfully.");
         }
     }
 }
