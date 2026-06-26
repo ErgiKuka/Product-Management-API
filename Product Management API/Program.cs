@@ -31,6 +31,7 @@ namespace Product_Management_API
             builder.Services.AddValidatorsFromAssemblyContaining<ProductUpdateValidator>();
             builder.Services.AddValidatorsFromAssemblyContaining<CategoryCreateValidator>();
             builder.Services.AddValidatorsFromAssemblyContaining<CategoryUpdateValidator>();
+            builder.Services.AddAutoMapper(cfg => cfg.AddMaps(typeof(Program).Assembly));
 
             builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
