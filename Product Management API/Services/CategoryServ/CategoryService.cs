@@ -11,7 +11,9 @@ namespace Product_Management_API.Services.CategoryServ
         private readonly ILogger<CategoryService> _logger;
         private readonly IMapper _mapper;
 
-        public CategoryService(IUnitOfWork unitOfWork, ILogger<CategoryService> logger, IMapper mapper)
+        public CategoryService(IUnitOfWork unitOfWork, 
+                               ILogger<CategoryService> logger, 
+                               IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _logger = logger;

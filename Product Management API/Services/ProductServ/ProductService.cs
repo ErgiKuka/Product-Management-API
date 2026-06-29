@@ -11,7 +11,9 @@ namespace Product_Management_API.Services.ProductServ
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger<ProductService> _logger;
         private readonly IMapper _mapper;
-        public ProductService(IUnitOfWork unitOfWork, ILogger<ProductService> logger, IMapper mapper)
+        public ProductService(IUnitOfWork unitOfWork,
+                             ILogger<ProductService> logger, 
+                             IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _logger = logger;
@@ -33,7 +35,7 @@ namespace Product_Management_API.Services.ProductServ
                 Price = dto.Price,
                 StockQuantity = dto.StockQuantity,
                 CategoryId = dto.CategoryId,
-                CreatedAt = DateTime.UtcNow
+                CreatedAt = DateTime.Now
             };
             
 
