@@ -9,11 +9,9 @@ namespace Product_Management_API.Data.Entities
        public string ProductName { get; set; }
        public string? Description { get; set; }
        public decimal Price { get; set; }
-       public double StockQuantity { get; set; }
+       public int StockQuantity { get; set; } = 0;
        public int CategoryId { get; set; }
-
        public Category Category { get; set; }
-
        public DateTime CreatedAt { get; set; }
        public DateTime UpdatedAt { get; set; }
 
@@ -39,9 +37,9 @@ namespace Product_Management_API.Data.Entities
                     .IsRequired();
 
             entity.HasOne(b => b.Category)
-                  .WithMany()
+                  .WithMany(c => c.Products)
                   .HasForeignKey(b => b.CategoryId)
-                  .OnDelete(DeleteBehavior.Restrict);
+                  .OnDelete(DeleteBehavior.Cascade);
 
             entity.Property(b => b.CreatedAt)
                   .IsRequired();
