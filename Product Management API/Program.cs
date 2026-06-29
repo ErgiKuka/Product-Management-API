@@ -9,8 +9,6 @@ using Product_Management_API.Repositories.ProductRepo;
 using Product_Management_API.Services.CategoryServ;
 using Product_Management_API.Services.ProductServ;
 using Product_Management_API.UOW;
-using Product_Management_API.Validators.CategoryValidators;
-using Product_Management_API.Validators.ProductValidators;
 
 namespace Product_Management_API
 {
@@ -57,9 +55,10 @@ namespace Product_Management_API
 
             app.UseHttpsRedirection();
 
-            app.UseAuthorization();
 
             app.UseMiddleware<ErrorHandlingMiddleware>();
+            app.UseAuthorization();
+
             app.MapControllers();
 
             app.Run();

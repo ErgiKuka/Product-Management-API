@@ -31,7 +31,7 @@ namespace Product_Management_API.Middleware
                 _logger.LogWarning("Resource not found: {Details}", ex.Message);
                 await context.Response.WriteAsJsonAsync(errorResponse);
             }
-            catch (Exception ex)
+            catch (BadHttpRequestException ex)
             {
                context.Response.StatusCode = 500;
                 context.Response.ContentType = "application/json";
