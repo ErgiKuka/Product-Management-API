@@ -13,7 +13,7 @@ namespace Product_Management_API.Data.Entities
        public int CategoryId { get; set; }
        public Category Category { get; set; }
        public DateTime CreatedAt { get; set; }
-       public DateTime UpdatedAt { get; set; }
+       public DateTime? UpdatedAt { get; set; }
 
 
 
@@ -44,8 +44,8 @@ namespace Product_Management_API.Data.Entities
             entity.Property(b => b.CreatedAt)
                   .IsRequired();
 
-            entity.Property(b => b.UpdatedAt)
-                  .IsRequired();
+            //entity.Property(b => b.UpdatedAt)
+            //      .IsRequired();
 
         }
     }
