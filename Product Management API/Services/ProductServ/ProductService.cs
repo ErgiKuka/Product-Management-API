@@ -25,7 +25,7 @@ namespace Product_Management_API.Services.ProductServ
             var category =  await _unitOfWork.Category.GetByIdAsync(dto.CategoryId);
             if (category == null)
             {
-                throw new ArgumentException($"Category with ID {dto.CategoryId} does not exist.");
+                throw new KeyNotFoundException($"Category with ID {dto.CategoryId} does not exist.");
             }
 
             var product = new Product
@@ -53,7 +53,7 @@ namespace Product_Management_API.Services.ProductServ
             var product = await _unitOfWork.Product.GetByIdAsync(id);
             if (product == null)
             {
-                throw new ArgumentException($"Product with ID {id} does not exist.");
+                throw new KeyNotFoundException($"Product with ID {id} does not exist.");
             }
 
             _unitOfWork.Product.Delete(product);
@@ -75,7 +75,7 @@ namespace Product_Management_API.Services.ProductServ
             var product = await _unitOfWork.Product.GetByIdAsync(id);
             if (product == null)
             {
-                throw new ArgumentException($"Product with ID {id} does not exist.");
+                throw new KeyNotFoundException($"Product with ID {id} does not exist.");
             }
             _logger.LogInformation($"Retrieved product with ID {id} from the database.");
 
@@ -88,13 +88,13 @@ namespace Product_Management_API.Services.ProductServ
 
             if (product == null)
             {
-                throw new ArgumentException($"Product with ID {id} does not exist.");
+                throw new KeyNotFoundException($"Product with ID {id} does not exist.");
             }
 
             var category = await _unitOfWork.Category.GetByIdAsync(dto.CategoryId);
             if (category == null)
             {
-                throw new ArgumentException($"Category with ID {dto.CategoryId} does not exist.");
+                throw new KeyNotFoundException($"Category with ID {dto.CategoryId} does not exist.");
             }
 
             product.ProductName = dto.ProductName;

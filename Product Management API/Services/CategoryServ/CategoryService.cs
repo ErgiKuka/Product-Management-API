@@ -40,7 +40,7 @@ namespace Product_Management_API.Services.CategoryServ
             var category = await _unitOfWork.Category.GetByIdAsync(id);
             if (category == null)
             {
-                throw new ArgumentException($"Category with ID {id} does not exist.");
+                throw new KeyNotFoundException($"Category with ID {id} does not exist.");
             }
             _unitOfWork.Category.Delete(category);
             await _unitOfWork.CompleteAsync();
@@ -60,7 +60,7 @@ namespace Product_Management_API.Services.CategoryServ
             var category = await _unitOfWork.Category.GetByIdAsync(id);
             if (category == null)
             {
-                throw new ArgumentException($"Category with ID {id} does not exist.");
+                throw new KeyNotFoundException($"Category with ID {id} does not exist.");
             }
             _logger.LogInformation($"Category retrieved with ID: {id}");
 
@@ -72,7 +72,7 @@ namespace Product_Management_API.Services.CategoryServ
             var category = await _unitOfWork.Category.GetByIdAsync(id);
             if (category == null)
             {
-                throw new ArgumentException($"Category with ID {id} does not exist.");
+                throw new KeyNotFoundException($"Category with ID {id} does not exist.");
             }
             category.CategoryName = dto.CategoryName;
             category.Description = dto.Description;

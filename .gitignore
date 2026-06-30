@@ -361,3 +361,7 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+
+#Hiding the connection string of the sever so the name of the sever doesnt appear on github
+**/appsettings.Development.json
