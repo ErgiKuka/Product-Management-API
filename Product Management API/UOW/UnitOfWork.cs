@@ -7,6 +7,9 @@ namespace Product_Management_API.UOW
     public class UnitOfWork : IUnitOfWork
     {
         private readonly AppDbContext _context;
+
+        private bool _disposed = false;
+
         public IProductRepository Product { get; private set; }
         public ICategoryRepository Category { get; private set; }
 
@@ -22,6 +25,24 @@ namespace Product_Management_API.UOW
         public async Task<int> CompleteAsync()
         {
             return await _context.SaveChangesAsync();
+        }
+
+        public void Dispose()
+        {
+            Dispose(_disposed = true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    _context.Dispose();
+                }
+                _disposed = true;
+            }
         }
     }
 }

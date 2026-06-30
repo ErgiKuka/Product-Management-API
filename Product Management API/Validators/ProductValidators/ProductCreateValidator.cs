@@ -19,6 +19,9 @@ namespace Product_Management_API.Validators.ProductValidators
 
             RuleFor(x => x.StockQuantity)
                 .GreaterThanOrEqualTo(0).WithMessage("Stock cannot be negative");
+
+            RuleFor(x => x.Description)
+                .MaximumLength(1000).WithMessage("Description must not exceed 1000 characters.");
         }
     }
 }

@@ -19,7 +19,7 @@ namespace Product_Management_API.Middleware
             {
                 await _next(context);
             }
-            catch (ValidationException ex)
+            catch (ArgumentException ex)
             {
                 context.Response.StatusCode = 400;
                 context.Response.ContentType = "application/json";
