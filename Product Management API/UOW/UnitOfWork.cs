@@ -29,7 +29,7 @@ namespace Product_Management_API.UOW
 
         public void Dispose()
         {
-            Dispose(_disposed = true);
+            Dispose(true);
             GC.SuppressFinalize(this);
         }
 

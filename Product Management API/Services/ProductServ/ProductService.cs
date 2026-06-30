@@ -59,13 +59,15 @@ namespace Product_Management_API.Services.ProductServ
             _unitOfWork.Product.Delete(product);
 
             await _unitOfWork.CompleteAsync();
-            _logger.LogInformation($"Product with ID {id} deleted successfully.");
+            _logger.LogInformation("Product with ID {ProductId} deleted successfully.", id);
         }
 
         public async Task<IEnumerable<ProductResponseDto>> GetAllProductsAsync(int? categoryid)
         {
             var products = await _unitOfWork.Product.GetAllProductsAsync(categoryid);
-            _logger.LogInformation($"Retrieved {products.Count()} products from the database.");
+            _logger.LogInformation("Retrieved {products.Count()} products from the database for categoryId {categoryid}."
+                                    ,products.Count()
+                                    ,categoryid);
 
             return _mapper.Map<IEnumerable<ProductResponseDto>>(products).ToList();
         }
@@ -77,7 +79,7 @@ namespace Product_Management_API.Services.ProductServ
             {
                 throw new KeyNotFoundException($"Product with ID {id} does not exist.");
             }
-            _logger.LogInformation($"Retrieved product with ID {id} from the database.");
+            _logger.LogInformation("Retrieved product with ID {id} from the database.", id);
 
             return _mapper.Map<ProductResponseDto>(product);
         }
@@ -105,7 +107,7 @@ namespace Product_Management_API.Services.ProductServ
             product.UpdatedAt = DateTime.UtcNow;
 
             await _unitOfWork.CompleteAsync();
-            _logger.LogInformation($"Product with ID {id} updated successfully.");
+            _logger.LogInformation("Product with ID {id} updated successfully.", id);
         }
     }
 }

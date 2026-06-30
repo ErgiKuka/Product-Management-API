@@ -30,7 +30,7 @@ namespace Product_Management_API.Services.CategoryServ
             await _unitOfWork.Category.AddAsync(category);
             await _unitOfWork.CompleteAsync();
 
-            _logger.LogInformation($"Category created with ID: {category.CategoryId}");
+            _logger.LogInformation("Category created with ID: {category.CategoryId}", category.CategoryId);
 
             return _mapper.Map<CategoryResponseDto>(category);
         }
@@ -44,7 +44,7 @@ namespace Product_Management_API.Services.CategoryServ
             }
             _unitOfWork.Category.Delete(category);
             await _unitOfWork.CompleteAsync();
-            _logger.LogInformation($"Category with ID: {id} deleted.");
+            _logger.LogInformation($"Category with ID: {id} deleted.", id);
         }
 
         public async Task<IEnumerable<CategoryResponseDto>> GetAllCategoriesAsync()
@@ -62,7 +62,7 @@ namespace Product_Management_API.Services.CategoryServ
             {
                 throw new KeyNotFoundException($"Category with ID {id} does not exist.");
             }
-            _logger.LogInformation($"Category retrieved with ID: {id}");
+            _logger.LogInformation("Category retrieved with ID: {id}", id);
 
             return _mapper.Map<CategoryResponseDto>(category);
         }
@@ -78,7 +78,7 @@ namespace Product_Management_API.Services.CategoryServ
             category.Description = dto.Description;
             _unitOfWork.Category.Update(category);
             await _unitOfWork.CompleteAsync();
-            _logger.LogInformation($"Category with ID: {id} updated.");
+            _logger.LogInformation("Category with ID: {id} updated.", id);
         }
     }
 }
