@@ -34,8 +34,9 @@ namespace Product_Management_API.Services.ProductServ
                 Description = dto.Description,
                 Price = dto.Price,
                 StockQuantity = dto.StockQuantity,
+                Category = category,
                 CategoryId = dto.CategoryId,
-                CreatedAt = DateTime.Now
+                CreatedAt = DateTime.UtcNow
             };
             
 
