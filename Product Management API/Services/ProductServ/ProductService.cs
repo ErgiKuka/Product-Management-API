@@ -65,7 +65,7 @@ namespace Product_Management_API.Services.ProductServ
         public async Task<IEnumerable<ProductResponseDto>> GetAllProductsAsync(int? categoryid)
         {
             var products = await _unitOfWork.Product.GetAllProductsAsync(categoryid);
-            _logger.LogInformation("Retrieved {products.Count()} products from the database for categoryId {categoryid}."
+            _logger.LogInformation("Retrieved {ProductCount} products from the database for categoryId {Categoryid}."
                                     ,products.Count()
                                     ,categoryid);
 

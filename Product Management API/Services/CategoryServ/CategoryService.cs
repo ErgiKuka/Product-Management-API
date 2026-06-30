@@ -44,13 +44,13 @@ namespace Product_Management_API.Services.CategoryServ
             }
             _unitOfWork.Category.Delete(category);
             await _unitOfWork.CompleteAsync();
-            _logger.LogInformation($"Category with ID: {id} deleted.", id);
+            _logger.LogInformation("Category with ID: {id} deleted.", id);
         }
 
         public async Task<IEnumerable<CategoryResponseDto>> GetAllCategoriesAsync()
         {
             var categories = await _unitOfWork.Category.GetAllCategoriesAsync();
-            _logger.LogInformation($"Retrieved {categories.Count()} categories.");
+            _logger.LogInformation("Retrieved {CategoryId} categories.", categories.Count());
 
             return _mapper.Map<IEnumerable<CategoryResponseDto>>(categories).ToList();
         }
