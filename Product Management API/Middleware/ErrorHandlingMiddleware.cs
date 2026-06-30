@@ -19,7 +19,19 @@ namespace Product_Management_API.Middleware
             {
                 await _next(context);
             }
-            catch (ArgumentException ex)
+            catch (ValidationException ex)
+            {
+                context.Response.StatusCode = 400;
+                context.Response.ContentType = "application/json";
+                var errorResponse = new
+                {
+                    Message = "Validation failed.",
+                    Details = ex.Message
+                };
+                _logger.LogWarning("Validation failed: {Details}", ex.Message);
+                await context.Response.WriteAsJsonAsync(errorResponse);
+            }
+            catch (KeyNotFoundException ex)
             {
                 context.Response.StatusCode = 404;
                 context.Response.ContentType = "application/json";
@@ -31,7 +43,7 @@ namespace Product_Management_API.Middleware
                 _logger.LogWarning("Resource not found: {Details}", ex.Message);
                 await context.Response.WriteAsJsonAsync(errorResponse);
             }
-            catch (BadHttpRequestException ex)
+            catch (Exception ex)
             {
                context.Response.StatusCode = 500;
                 context.Response.ContentType = "application/json";
@@ -42,6 +54,7 @@ namespace Product_Management_API.Middleware
                 _logger.LogError(ex, "An unexpected error occurred.");
                 await context.Response.WriteAsJsonAsync(errorResponse);
             }
+
         }
     }
 }
