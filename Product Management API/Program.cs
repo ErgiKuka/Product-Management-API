@@ -5,8 +5,10 @@ using Microsoft.EntityFrameworkCore;
 using Product_Management_API.Data;
 using Product_Management_API.Middleware;
 using Product_Management_API.Repositories.CategoryRepo;
+using Product_Management_API.Repositories.CustomerRepo;
 using Product_Management_API.Repositories.ProductRepo;
 using Product_Management_API.Services.CategoryServ;
+using Product_Management_API.Services.CustomerServ;
 using Product_Management_API.Services.ProductServ;
 using Product_Management_API.UOW;
 
@@ -19,11 +21,13 @@ namespace Product_Management_API
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-            builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.AddScoped<IProductService, ProductService>();
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
+            builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-            
+            builder.Services.AddScoped<ICustomerService, CustomerService>();
+            builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+
             builder.Services.AddFluentValidationAutoValidation();
             builder.Services.AddValidatorsFromAssemblyContaining<Program>();
             //builder.Services.AddValidatorsFromAssemblyContaining<ProductUpdateValidator>();

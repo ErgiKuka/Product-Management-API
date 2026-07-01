@@ -1,5 +1,6 @@
 ﻿using Product_Management_API.Data;
 using Product_Management_API.Repositories.CategoryRepo;
+using Product_Management_API.Repositories.CustomerRepo;
 using Product_Management_API.Repositories.ProductRepo;
 
 namespace Product_Management_API.UOW
@@ -12,14 +13,17 @@ namespace Product_Management_API.UOW
 
         public IProductRepository Product { get; private set; }
         public ICategoryRepository Category { get; private set; }
+        public ICustomerRepository Customer { get; private set; }
 
         public UnitOfWork(AppDbContext context, 
                             IProductRepository productRepository, 
-                            ICategoryRepository categoryRepository)
+                            ICategoryRepository categoryRepository,
+                            ICustomerRepository customerRepository)
         {
             _context = context;
             Product = productRepository;
             Category = categoryRepository;
+            Customer = customerRepository;
         }
 
         public async Task<int> CompleteAsync()
