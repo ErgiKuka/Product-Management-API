@@ -8,6 +8,7 @@ namespace Product_Management_API.Data
 
         public DbSet<Product>  Products { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Customer> Customers { get; set; }
 
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
@@ -19,6 +20,7 @@ namespace Product_Management_API.Data
         {
             Data.Entities.Product.ConfigureForDb(modelBuilder.Entity<Product>());
             Data.Entities.Category.ConfigureForDb(modelBuilder.Entity<Category>());
+            Data.Entities.Customer.ConfigureForDb(modelBuilder.Entity<Customer>());
         }
     }
 }
