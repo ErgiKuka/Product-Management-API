@@ -7,13 +7,15 @@ namespace Product_Management_API.Data.Entities
     {
        public int ProductId { get; set; }
        public string ProductName { get; set; }
-        public string? Description { get; set; } = "";
+        public string? Description { get; set; }
        public decimal Price { get; set; }
        public int StockQuantity { get; set; } = 0;
        public int CategoryId { get; set; }
        public Category Category { get; set; }
        public DateTime CreatedAt { get; set; }
        public DateTime? UpdatedAt { get; set; }
+
+        public ICollection<OrderItems> OrderItems { get; set; } = new List<OrderItems>();
 
 
 
@@ -29,6 +31,10 @@ namespace Product_Management_API.Data.Entities
             entity.Property(p => p.Description)
                   .HasMaxLength(1000);
 
+            entity.Property(b => b.Price)
+                  .HasColumnType("decimal(18,2)")
+                  .IsRequired();
+
             entity.Property(b => b.StockQuantity)
                   .IsRequired();
 
@@ -42,10 +48,6 @@ namespace Product_Management_API.Data.Entities
 
             entity.Property(b => b.CreatedAt)
                   .IsRequired();
-
-            //entity.Property(b => b.UpdatedAt)
-            //      .IsRequired();
-
         }
     }
 }

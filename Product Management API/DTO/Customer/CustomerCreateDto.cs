@@ -1,4 +1,6 @@
-﻿namespace Product_Management_API.DTO.Customer
+﻿using Product_Management_API.DTO.Orders;
+
+namespace Product_Management_API.DTO.Customer
 {
     public class CustomerCreateDto
     {
