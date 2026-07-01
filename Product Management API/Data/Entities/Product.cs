@@ -7,7 +7,7 @@ namespace Product_Management_API.Data.Entities
     {
        public int ProductId { get; set; }
        public string ProductName { get; set; }
-       public string? Description { get; set; }
+        public string? Description { get; set; } = "";
        public decimal Price { get; set; }
        public int StockQuantity { get; set; } = 0;
        public int CategoryId { get; set; }
@@ -27,14 +27,13 @@ namespace Product_Management_API.Data.Entities
                   .IsRequired();
 
             entity.Property(p => p.Description)
-                  .HasMaxLength(1000)
-                  .IsRequired(false);
+                  .HasMaxLength(1000);
 
             entity.Property(b => b.StockQuantity)
                   .IsRequired();
 
             entity.Property(b => b.CategoryId)
-                    .IsRequired();
+                  .IsRequired();
 
             entity.HasOne(b => b.Category)
                   .WithMany(c => c.Products)

@@ -44,7 +44,7 @@ namespace Product_Management_API.Services.ProductServ
 
             await _unitOfWork.CompleteAsync();
 
-            _logger.LogInformation($"Product with ID {product.ProductId} created successfully.");
+            _logger.LogInformation("Product with ID {ProductId} created successfully.", product.ProductId);
             return _mapper.Map<ProductResponseDto>(product);
         }
 

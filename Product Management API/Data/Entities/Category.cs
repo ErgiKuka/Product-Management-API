@@ -7,7 +7,7 @@ namespace Product_Management_API.Data.Entities
     {
         public int CategoryId { get; set; }
         public string CategoryName { get; set; }
-        public string? Description { get; set; }
+        public string? Description { get; set; } = "";
         public ICollection<Product> Products { get; set; } = new List<Product>();
 
 
@@ -21,8 +21,7 @@ namespace Product_Management_API.Data.Entities
                   .IsRequired();
 
             entity.Property(p => p.Description)
-                  .HasMaxLength(1000)
-                  .IsRequired(false);
+                  .HasMaxLength(1000);
 
         }
     }
