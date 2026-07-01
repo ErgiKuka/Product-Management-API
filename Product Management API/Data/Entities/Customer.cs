@@ -11,6 +11,7 @@ namespace Product_Management_API.Data.Entities
         public string Email { get; set; }
         public string Address { get; set; }
         public string? PhoneNumber { get; set; }
+        public ICollection<Orders> Orders { get; set; } = new List<Orders>();
 
         internal static void ConfigureForDb(EntityTypeBuilder<Customer> entity)
         {
